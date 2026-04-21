@@ -2,6 +2,12 @@ from interface import ImageApp
 import tkinterdnd2 as tkdnd
 
 def main():
+    from assistant import Assistant
+    
+    
+    
+    
+    
     root = tkdnd.Tk()
     app = ImageApp(root)
     root.mainloop()
