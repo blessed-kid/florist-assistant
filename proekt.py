@@ -1,12 +1,6 @@
 from ultralytics import YOLO
-import matplotlib
-import numpy as np
-import cv2
-import pymorphy2
-from interface import ImageApp
-import tkinterdnd2 as tkdnd
 
-def main():
+def obuch():
     model = YOLO("yolo26s.pt")
     result = model.train(
         data="data.yaml",
@@ -16,7 +10,8 @@ def main():
     )
     
     k= model.val()
+    model.save('flowerassist/models/versionYOLO.pt')
     # test = model.val(test)
 if __name__ == "__main__":
-    main()
+    obuch()
 
