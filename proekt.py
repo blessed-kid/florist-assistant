@@ -4,7 +4,7 @@ def obuch():
     model = YOLO("yolo26s.pt")
     result = model.train(
         data="data.yaml",
-        epochs = 10,
+        epochs = 1000,
         imgsz = 640,
         batch = 16,
     )

@@ -12,7 +12,7 @@ def main():
     if success:
         results = model(frame)
         annotated_frame = results[0].plot()
-        cv2.imshow('YOLO11 Detection', annotated_frame)
+        cv2.imshow('YOLO26 Detection', annotated_frame)
     # cap.release()
     
     root = tkdnd.Tk()
