@@ -1,0 +1,11 @@
+train: C:/Users/a.m.vershinin/Documents/flowerassist/flowers_yolo26/data/train/images
+val: ...
+nc: 6
+names: ['Carnation', 'alstroemeria', 'chrysanthemum', 'orchid', 'rose', 'tulip']
+
+roboflow:
+  workspace: s-workspace-tbsfv
+  project: s-workspace-tbsfv
+  version: dataset
+  license: Private
+  url: https://app.roboflow.com/s-workspace-tbsfv/s-workspace-tbsfv/dataset

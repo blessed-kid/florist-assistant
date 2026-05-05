@@ -3,7 +3,7 @@ import tkinterdnd2 as tkdnd
 from assistant import Assistant
 import cv2
 from ultralytics import YOLO
-model=YOLO("flowerassist/models/versionYOLO.pt")
+model=YOLO("flowerassist/yolo26n.pt")
 
 def main():
     assistant2 = Assistant(path = "photo_flower.jpg")
