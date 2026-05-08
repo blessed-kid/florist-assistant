@@ -16,3 +16,7 @@ __pycache__/
 /images
 /data
 /plot_images
+
+/runs
+/flowers_yolo26
+/flowers_yolo26
