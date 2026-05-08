@@ -1,8 +1,8 @@
 
-flowers - vdataset s-workspace-tbsfv
+flowers - v1 2026-05-08 4:14pm
 ==============================
 
-This dataset was exported via roboflow.com on May 3, 2026 at 4:09 PM GMT
+This dataset was exported via roboflow.com on May 8, 2026 at 12:17 PM GMT
 
 Roboflow is an end-to-end computer vision platform that helps you
 * collaborate with your team on computer vision projects
@@ -20,4 +20,10 @@ To find over 100k other datasets and pre-trained models, visit https://universe.
 The dataset includes 481 images.
 Flowers are annotated in YOLO26 format.
 
-No pre-processing or augmentation was applied.
+The following pre-processing was applied to each image:
+* Auto-orientation of pixel data (with EXIF-orientation stripping)
+* Resize to 512x512 (Stretch)
+
+No image augmentation techniques were applied.
+
+
