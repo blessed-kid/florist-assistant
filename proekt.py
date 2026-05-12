@@ -1,17 +1,23 @@
 from ultralytics import YOLO
 
 def obuch():
-    model = YOLO("yolo26n.pt")
+    model = YOLO("C:/Users/admin/Documents/runs/detect/train36/weights/best.pt")
     result = model.train(
-        data="C:/Users/a.m.vershinin/Documents/flowerassist/flowers_yolo26/data.yaml",
-        epochs = 1,
+        data="C:/Users/admin/Documents/florist-assistant/flowers_yolo26/data.yaml",
+        epochs = 20,
         imgsz = 640,
-        batch = 16,
+        batch = 64,
     )
     
     k= model.val()
-    model.save('flowerassist/yolo26n.pt')
-    #test = model.val(test)
+    # test = "C:/Users/admin/Documents/florist-assistant/flowers_yolo26/test/images"
+    # test = model.(test)
+    # test = model.val(test)
+    # result = model.predict(model='florist-assistant/yolo26n.pt', source="C:/Users/admin/Documents/florist-assistant/flowers_yolo26/test/images")
+    metrics = model.val(data="C:/Users/admin/Documents/florist-assistant/flowers_yolo26/data.yaml", split = 'test')
+    model.save('florist-assistant/yolo26n.pt')
+    result = model.predict(source = "C:/Users/admin/Documents/florist-assistant/flowers_yolo26/test/images", save = True, conf = 0.1)
+    
 if __name__ == "__main__":
     obuch()
 

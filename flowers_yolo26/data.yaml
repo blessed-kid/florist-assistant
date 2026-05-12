@@ -1,6 +1,6 @@
-train: C:/Users/a.m.vershinin/Documents/flowerassist/flowers_yolo26/train/images
-val: C:/Users/a.m.vershinin/Documents/flowerassist/flowers_yolo26/valid/images
-test: C:/Users/a.m.vershinin/Documents/flowerassist/flowers_yolo26/test/images
+train: C:/Users/admin/Documents/florist-assistant/flowers_yolo26/train/images
+val: C:/Users/admin/Documents/florist-assistant/flowers_yolo26/valid/images
+test: C:/Users/admin/Documents/florist-assistant/flowers_yolo26/test/images
 
 nc: 6
 names: ['Carnation', 'alstroemeria', 'chrysanthemum', 'orchid', 'rose', 'tulip']
