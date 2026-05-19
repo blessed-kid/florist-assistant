@@ -7,7 +7,7 @@ import cv2
 from ultralytics import YOLO
 
 class ImageProcessorApp:
-    def __init__(self, root, model):
+    def __init__(self, root):
         self.root = root
         self.root.title("YOLO Image Processor 640x640")
         self.root.geometry("1750x800")
@@ -15,11 +15,11 @@ class ImageProcessorApp:
         model=YOLO("C:/Users/admin/Documents/runs/detect/train36/weights/best.pt")
         self.model = model
         
-        self.processed_dir = "processed_data"
+        self.processed_dir = "processed_data/image_flower.jpg"
         if not os.path.exists(self.processed_dir):
             os.makedirs(self.processed_dir)
             
-        self.file_path = "processed_data"
+        self.file_path = "processed_data/image_flower.jpg"
         # Настройка Drag-and-Drop
         self.root.drop_target_register(tkdnd.DND_FILES)
         self.root.dnd_bind('<<Drop>>', self.handle_drop)
@@ -84,7 +84,7 @@ class ImageProcessorApp:
         result = self.execute_pipeline(input_path = self.file_path)
         
         # Передаем данные на вывод
-        self.display_output(self.file_path, result['processed_path'], result['logs'])
+        self.display_output(orig_path = self.file_path, proc_path = self.file_path, logs = result['logs'])
 
     # --- 2. ФУНКЦИЯ ОБРАБОТКИ (PROCESSING) ---
 
@@ -102,6 +102,7 @@ class ImageProcessorApp:
             image = cv2.convertScaleAbs(image, alpha = alpha, beta = beta)
 
             temp_path = "processed_data/temp_step.jpg"
+            self.temp_path = temp_path
             img.save(temp_path)
 
             # Этап YOLO
@@ -125,7 +126,7 @@ class ImageProcessorApp:
 
     # --- 3. ФУНКЦИИ ВЫВОДА (OUTPUT) ---
 
-    def display_output(self, orig_path, proc_path, logs):
+    def display_output(self, orig_path:str, proc_path:str, logs):
         """Только отрисовка данных в окнах"""
         # Вывод оригинального фото
         self._update_label_image(self.label_orig, orig_path)
