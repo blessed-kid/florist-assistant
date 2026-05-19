@@ -3,26 +3,23 @@ from tkinter import ttk, filedialog, messagebox
 import os
 from PIL import Image, ImageTk, ImageFilter
 import tkinterdnd2 as tkdnd
-
-# Попытка импорта YOLO
-try:
-    from ultralytics import YOLO
-except ImportError:
-    YOLO = None
+import cv2
+from ultralytics import YOLO
 
 class ImageProcessorApp:
-    def __init__(self, root):
+    def __init__(self, root, model):
         self.root = root
         self.root.title("YOLO Image Processor 640x640")
         self.root.geometry("1750x800")
-
+        
+        model=YOLO("C:/Users/admin/Documents/runs/detect/train36/weights/best.pt")
+        self.model = model
+        
         self.processed_dir = "processed_data"
         if not os.path.exists(self.processed_dir):
             os.makedirs(self.processed_dir)
-
-        # Загрузка модели
-        self.model = YOLO("yolov8n.pt") if YOLO else None
-
+            
+        self.file_path = "processed_data"
         # Настройка Drag-and-Drop
         self.root.drop_target_register(tkdnd.DND_FILES)
         self.root.dnd_bind('<<Drop>>', self.handle_drop)
@@ -48,7 +45,7 @@ class ImageProcessorApp:
         self.label_proc = self._create_image_window(main_container, "Выход (Filter + YOLO)")
         
         # Секция текста
-        text_frame = ttk.LabelFrame(main_container, text="Лог обнаружения")
+        text_frame = ttk.LabelFrame(main_container, text="Вся информация")
         text_frame.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.Y)
         text_frame.pack_propagate(False)
         text_frame.config(width=400, height=640)
@@ -84,14 +81,14 @@ class ImageProcessorApp:
         self.root.update()
         
         # Запускаем логику
-        result = self.execute_pipeline(file_path)
+        result = self.execute_pipeline(input_path = self.file_path)
         
         # Передаем данные на вывод
-        self.display_output(file_path, result['processed_path'], result['logs'])
+        self.display_output(self.file_path, result['processed_path'], result['logs'])
 
     # --- 2. ФУНКЦИЯ ОБРАБОТКИ (PROCESSING) ---
 
-    def execute_pipeline(self, input_path):
+    def execute_pipeline(self, input_path:str):
         """Вся математика и нейросеть здесь"""
         try:
             filename = os.path.basename(input_path)
@@ -99,14 +96,17 @@ class ImageProcessorApp:
             logs = []
 
             # Этап фильтра
-            img = Image.open(input_path)
-            img = img.filter(ImageFilter.DETAIL)
-            temp_path = "temp_step.jpg"
+            img = cv2.imread(input_path)
+            alpha = 1.5
+            beta = 20
+            image = cv2.convertScaleAbs(image, alpha = alpha, beta = beta)
+
+            temp_path = "processed_data/temp_step.jpg"
             img.save(temp_path)
 
             # Этап YOLO
             if self.model:
-                results = self.model(temp_path, conf=0.25)
+                results = self.model(temp_path, conf=0.1)
                 res_img_array = results[0].plot()
                 res_img = Image.fromarray(res_img_array[..., ::-1])
                 res_img.save(output_path)
