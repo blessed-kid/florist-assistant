@@ -5,6 +5,7 @@ from ultralytics import YOLO
 import tkinterdnd2 as tkdnd
 import cv2
 import os
+import shutil
 
 class App_for_assistant:
     def __init__(self, root):
@@ -13,8 +14,9 @@ class App_for_assistant:
         self.root.geometry("1200x600")
         
         self.processed_dir = "processed_data"
-        if not os.path.exists(self.processed_dir):
-            os.makedirs(self.processed_dir)
+        if os.path.exists(self.processed_dir):
+            shutil.rmtree(self.processed_dir)
+        os.makedirs(self.processed_dir)
         
         self.model = YOLO("C:/Users/admin/Documents/runs/detect/train36/weights/best.pt" )
         self.interface()
